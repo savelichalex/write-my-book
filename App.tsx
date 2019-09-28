@@ -13,5 +13,6 @@ YellowBox.ignoreWarnings(['`-[RCTRootView cancelTouches]']);
 
 import { NewcomerScreen } from './src/NewcomerScreen';
 import { BookOverviewScreen } from './src/BookOverviewScreen';
+import { ChapterEditScreen } from './src/ChapterEditScreen';
 
-export default BookOverviewScreen;
+export default ChapterEditScreen;

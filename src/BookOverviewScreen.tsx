@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { PrimaryButton } from './PrimaryButton';
 
 const HEADER_MAX_HEIGHT = 100;
 const HEADER_MIN_HEIGHT = 60;
@@ -221,7 +220,7 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		flexDirection: 'column',
 		justifyContent: 'flex-end',
-		backgroundColor: 'white',
+		backgroundColor: '#f6f8fa',
 	},
 	headerTitle: {
 		fontSize: 30,
@@ -238,7 +237,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		paddingHorizontal: 10,
-		backgroundColor: 'white',
+		backgroundColor: '#f6f8fa',
 		paddingHorizontal: '15%',
 	},
 	secondaryHeaderTitle: {
