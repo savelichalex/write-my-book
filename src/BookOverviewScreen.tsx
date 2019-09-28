@@ -3,6 +3,7 @@ import {
 	Animated,
 	View,
 	Text,
+	TextInput,
 	SafeAreaView,
 	TouchableOpacity,
 	FlatList,
@@ -12,34 +13,44 @@ import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { PrimaryButton } from './PrimaryButton';
 
-const HEADER_MAX_HEIGHT = 120;
+const HEADER_MAX_HEIGHT = 100;
 const HEADER_MIN_HEIGHT = 60;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 const lorem =
 	'Enim ut tellus elementum sagittis vitae et! Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas maecenas pharetra convallis posuere morbi!';
 
-export class BookOverviewScreen extends React.Component {
-	scrollY = new Animated.Value(0);
+interface State {
+	isEditingTitle: boolean;
+}
 
-	headerY = this.scrollY.interpolate({
+export class BookOverviewScreen extends React.Component<void, State> {
+	state = {
+		isEditingTitle: false,
+	};
+
+	private scrollY = new Animated.Value(0);
+
+	private headerY = this.scrollY.interpolate({
 		inputRange: [0, HEADER_SCROLL_DISTANCE],
 		outputRange: [1, 1 - HEADER_SCROLL_DISTANCE],
 		extrapolate: 'clamp',
 	});
 
-	headerTitleOpacity = new Animated.Value(0);
-	isHeaderTitleOpacityActive = false;
-	showHeaderTitle = Animated.spring(this.headerTitleOpacity, {
+	private headerTitleOpacity = new Animated.Value(0);
+	private isHeaderTitleOpacityActive = false;
+	private showHeaderTitle = Animated.spring(this.headerTitleOpacity, {
 		toValue: 1,
 		useNativeDriver: true,
 	});
-	hideHeaderTitle = Animated.spring(this.headerTitleOpacity, {
+	private hideHeaderTitle = Animated.spring(this.headerTitleOpacity, {
 		toValue: 0,
 		useNativeDriver: true,
 	});
 
-	onScroll = ({ nativeEvent }) => {
+	private listRef = React.createRef<FlatList>();
+
+	private onScroll = ({ nativeEvent }) => {
 		const offset = nativeEvent.contentOffset.y;
 		this.scrollY.setValue(offset);
 
@@ -53,7 +64,7 @@ export class BookOverviewScreen extends React.Component {
 		}
 	};
 
-	renderSwipeToDelete = index => (progress, dragX) => (
+	private renderSwipeToDelete = index => (progress, dragX) => (
 		<RectButton
 			style={{
 				backgroundColor: '#dd2c00',
@@ -69,7 +80,9 @@ export class BookOverviewScreen extends React.Component {
 		return (
 			<View style={styles.container}>
 				<FlatList
+					ref={this.listRef}
 					style={styles.list}
+					keyboardDismissMode="on-drag"
 					contentContainerStyle={styles.listContent}
 					scrollEventThrottle={1}
 					contentInsetAdjustmentBehavior="automatic"
@@ -102,9 +115,18 @@ export class BookOverviewScreen extends React.Component {
 									transform: [{ translateY: this.headerY }],
 								},
 							]}>
-							<Text style={styles.headerTitle} adjustsFontSizeToFit numberOfLines={1}>
-								The catcher in the rye
-							</Text>
+							{this.state.isEditingTitle ? (
+								<TextInput
+									style={styles.headerTitle}
+									numberOfLines={1}
+									autoFocus
+									defaultValue="The catcher in the rye"
+								/>
+							) : (
+								<Text style={styles.headerTitle} adjustsFontSizeToFit numberOfLines={1}>
+									The catcher in the rye
+								</Text>
+							)}
 						</Animated.View>
 						<Animated.View style={styles.secondaryHeader}>
 							<Animated.Text
@@ -115,8 +137,16 @@ export class BookOverviewScreen extends React.Component {
 							</Animated.Text>
 							<TouchableOpacity
 								style={styles.editWrapper}
-								hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }}>
-								<Text style={styles.editText}>Edit</Text>
+								hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }}
+								onPress={() => {
+									if (this.state.isEditingTitle) {
+										this.setState({ isEditingTitle: false });
+										return;
+									}
+									this.listRef.current.scrollToOffset({ offset: 0 });
+									this.setState({ isEditingTitle: true });
+								}}>
+								<Text style={styles.editText}>{this.state.isEditingTitle ? 'Save' : 'Edit'}</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
 								style={styles.addWrapper}
