@@ -8,6 +8,10 @@
  * @format
  */
 
-import { NewcomerScreen } from './src/NewcomerScreen';
+import { YellowBox } from 'react-native';
+YellowBox.ignoreWarnings(['`-[RCTRootView cancelTouches]']);
 
-export default NewcomerScreen;
+import { NewcomerScreen } from './src/NewcomerScreen';
+import { BookOverviewScreen } from './src/BookOverviewScreen';
+
+export default BookOverviewScreen;

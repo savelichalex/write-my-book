@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Animated, Text, StyleSheet } from 'react-native';
+import { Animated, Text, StyleSheet, ViewStyle } from 'react-native';
 import {
 	RawButton,
 	State,
@@ -8,6 +8,8 @@ import {
 
 interface Props {
 	onPress?(): void;
+	style?: ViewStyle;
+	contentStyle?: ViewStyle;
 	children: string;
 }
 
@@ -42,10 +44,16 @@ export class PrimaryButton extends React.Component<Props> {
 	render() {
 		return (
 			<RawButton
+				style={this.props.style}
 				onGestureEvent={this.onHandlerStateChange}
 				onHandlerStateChange={this.onHandlerStateChange}
 				shouldCancelWhenOutside>
-				<Animated.View style={[styles.container, { transform: [{ scale: this.scale }] }]}>
+				<Animated.View
+					style={[
+						styles.container,
+						this.props.contentStyle,
+						{ transform: [{ scale: this.scale }] },
+					]}>
 					<Text style={styles.text}>{this.props.children}</Text>
 				</Animated.View>
 			</RawButton>
