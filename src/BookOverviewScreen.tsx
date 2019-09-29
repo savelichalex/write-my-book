@@ -244,6 +244,7 @@ const styles = StyleSheet.create({
 	headerTitle: {
 		fontSize: 30,
 		fontWeight: 'bold',
+		padding: 0,
 	},
 	secondaryHeader: {
 		position: 'absolute',
