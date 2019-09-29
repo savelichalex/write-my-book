@@ -8,11 +8,13 @@
  * @format
  */
 
-import { YellowBox } from 'react-native';
+import { AppRegistry, YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['`-[RCTRootView cancelTouches]']);
 
 import { NewcomerScreen } from './src/NewcomerScreen';
 import { BookOverviewScreen } from './src/BookOverviewScreen';
 import { ChapterEditScreen } from './src/ChapterEditScreen';
 
-export default ChapterEditScreen;
+AppRegistry.registerComponent('NewcomerScreen', () => NewcomerScreen);
+AppRegistry.registerComponent('BookOverviewScreen', () => BookOverviewScreen);
+AppRegistry.registerComponent('ChapterEditScreen', () => ChapterEditScreen);

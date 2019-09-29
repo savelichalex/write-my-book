@@ -9,25 +9,42 @@
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
-#import <React/RCTRootView.h>
 
-@implementation AppDelegate
+#import "NewcomerScreenViewController.h"
+#import "BookOverviewScreenViewController.h"
+#import "ChapterEditScreenViewController.h"
+
+@implementation AppDelegate {
+  RCTBridge *bridge;
+  UIViewController *currentVC;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
-                                                   moduleName:@"WriteMyBook"
-                                            initialProperties:nil];
-
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+  
+  UIViewController *rootViewController = [[NewcomerScreenViewController alloc] initWithBridge:bridge];
+  currentVC = rootViewController;
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (void)present:(NSString *)screen {
+  if ([screen isEqualToString:@"BookOverviewScreen"]) {
+    UIViewController *vc = [[BookOverviewScreenViewController alloc] initWithBridge:bridge];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [currentVC presentViewController:nav animated:YES completion:^{
+      self->currentVC = nav;
+    }];
+  }
+  if ([screen isEqualToString:@"ChapterEditScreen"]) {
+    UIViewController *vc = [[ChapterEditScreenViewController alloc] initWithBridge:bridge];
+    [(UINavigationController *)currentVC pushViewController:vc animated:YES];
+  }
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

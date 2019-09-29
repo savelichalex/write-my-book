@@ -7,6 +7,7 @@ import {
 	Dimensions,
 	TextInput,
 	KeyboardAvoidingView,
+	NativeModules,
 } from 'react-native';
 import { PrimaryButton } from './PrimaryButton';
 
@@ -76,7 +77,12 @@ export class NewcomerScreen extends React.Component {
 						<View style={styles.inputWrapper}>
 							<TextInput ref={this.titleInputRef} style={styles.input} multiline />
 						</View>
-						<PrimaryButton onPress={() => {}}>Next</PrimaryButton>
+						<PrimaryButton
+							onPress={() => {
+								NativeModules.NavigationManager.present('BookOverviewScreen');
+							}}>
+							Next
+						</PrimaryButton>
 					</Animated.View>
 				</View>
 			</KeyboardAvoidingView>
