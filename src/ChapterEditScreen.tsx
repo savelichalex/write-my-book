@@ -5,14 +5,17 @@ import {
 	Text,
 	TextInput,
 	StyleSheet,
-	ScrollView,
 	TouchableWithoutFeedback,
+	Platform,
+	ScrollView,
 } from 'react-native';
 
 export class ChapterEditScreen extends React.Component {
 	render() {
 		return (
-			<KeyboardAvoidingView style={styles.container} behavior="padding">
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.select({ ios: 'padding', android: null })}>
 				<View style={styles.titleRow}>
 					<Text style={styles.titleRowLabel}>Title</Text>
 					<TextInput
@@ -38,6 +41,7 @@ export class ChapterEditScreen extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		flexDirection: 'column',
 		backgroundColor: '#f6f8fa',
 	},
 	titleRow: {
@@ -69,18 +73,16 @@ const styles = StyleSheet.create({
 	},
 	textInputWrapper: {
 		flex: 1,
+		backgroundColor: 'white',
+		overflow: 'hidden',
 	},
 	textInput: {
+		fontSize: 17,
 		paddingHorizontal: 15,
 		paddingTop: 15,
-		alignItems: 'center',
-		backgroundColor: 'white',
-		borderBottomWidth: StyleSheet.hairlineWidth,
-		borderBottomColor: 'rgba(0,0,0,.2)',
 		borderTopWidth: StyleSheet.hairlineWidth,
 		borderTopColor: 'rgba(0,0,0,.2)',
-		fontSize: 17,
-		height: '100%',
-		width: '100%',
+		//height: '100%',
+		// width: '100%',
 	},
 });
