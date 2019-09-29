@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ChapterEditScreenViewController : UIViewController
 
-- (instancetype)initWithBridge:(RCTBridge *)bridge;
+- (instancetype)initWithBridge:(RCTBridge *)bridge andProps:(NSDictionary *)props andFeedback:(RCTResponseSenderBlock)feedback;
 
 @end
 

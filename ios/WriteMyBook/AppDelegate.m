@@ -16,34 +16,54 @@
 
 @implementation AppDelegate {
   RCTBridge *bridge;
-  UIViewController *currentVC;
+  UIViewController *rootVC;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   
-  UIViewController *rootViewController = [[NewcomerScreenViewController alloc] initWithBridge:bridge];
-  currentVC = rootViewController;
+  // it will be UserDefaults check instead of true later
+  if (true) {
+    rootVC = [[NewcomerScreenViewController alloc] initWithBridge:bridge];
+  } else {
+    UIViewController *vc = [[BookOverviewScreenViewController alloc] initWithBridge:bridge];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    rootVC = nav;
+  }
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  self.window.rootViewController = rootViewController;
+  self.window.rootViewController = rootVC;
   [self.window makeKeyAndVisible];
   return YES;
 }
 
-- (void)present:(NSString *)screen {
+- (void)present:(NSString *)screen andProps:(NSDictionary *)props {
   if ([screen isEqualToString:@"BookOverviewScreen"]) {
     UIViewController *vc = [[BookOverviewScreenViewController alloc] initWithBridge:bridge];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     
-    [currentVC presentViewController:nav animated:YES completion:^{
-      self->currentVC = nav;
+    [rootVC presentViewController:nav animated:YES completion:^{
+      self->rootVC = nav;
     }];
   }
+}
+
+- (void)present:(NSString *)screen andProps:(NSDictionary *)props andFeedback:(RCTResponseSenderBlock)feedback {
   if ([screen isEqualToString:@"ChapterEditScreen"]) {
-    UIViewController *vc = [[ChapterEditScreenViewController alloc] initWithBridge:bridge];
-    [(UINavigationController *)currentVC pushViewController:vc animated:YES];
+    if ([rootVC isKindOfClass:[UINavigationController class]]) {
+      UIViewController *vc = [[ChapterEditScreenViewController alloc] initWithBridge:bridge andProps:props andFeedback:feedback];
+      [(UINavigationController *)rootVC pushViewController:vc animated:YES];
+    } else {
+      UIViewController *vc = [[ChapterEditScreenViewController alloc] initWithBridge:bridge andProps:props andFeedback:feedback];
+      vc.navigationItem.title = @"Create first chapter";
+      UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+      
+      [rootVC presentViewController:nav animated:YES completion:^{
+        self->rootVC = nav;
+      }];
+    }
   }
 }
 

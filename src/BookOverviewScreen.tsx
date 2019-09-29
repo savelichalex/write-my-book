@@ -105,7 +105,15 @@ export class BookOverviewScreen extends React.Component<void, State> {
 					}))}
 					renderItem={({ item, index }) => (
 						<Swipeable renderRightActions={this.renderSwipeToDelete(index)}>
-							<RectButton style={styles.listRowButton}>
+							<RectButton
+								style={styles.listRowButton}
+								onPress={() => {
+									NativeModules.NavigationManager.presentWithFeedback(
+										'ChapterEditScreen',
+										{ id: index },
+										(...args) => console.log(args)
+									);
+								}}>
 								<Text style={styles.listRowIndex}>{index + 1}.</Text>
 								<View style={styles.listRowTextStack}>
 									<Text style={styles.listRowChapterTitle}>{item.title}</Text>
@@ -162,7 +170,11 @@ export class BookOverviewScreen extends React.Component<void, State> {
 						style={styles.addWrapper}
 						hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }}
 						onPress={() => {
-							NativeModules.NavigationManager.present('ChapterEditScreen');
+							NativeModules.NavigationManager.presentWithFeedback(
+								'ChapterEditScreen',
+								{ id: null },
+								(...args) => console.log(args)
+							);
 						}}>
 						<Text style={styles.editText}>Add</Text>
 					</TouchableOpacity>

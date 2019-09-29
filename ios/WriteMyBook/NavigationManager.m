@@ -13,9 +13,15 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(present:(NSString *)screen) {
+RCT_EXPORT_METHOD(present:(NSString *)screen andProps:(NSDictionary *)props) {
   dispatch_async(dispatch_get_main_queue(), ^{
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] present:screen];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] present:screen andProps:props];
+  });
+}
+
+RCT_EXPORT_METHOD(presentWithFeedback:(NSString *)screen andProps:(NSDictionary *)props andFeedback:(RCTResponseSenderBlock)feedback) {
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] present:screen andProps:props andFeedback:feedback];
   });
 }
 

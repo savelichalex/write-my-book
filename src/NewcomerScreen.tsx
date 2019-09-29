@@ -79,7 +79,15 @@ export class NewcomerScreen extends React.Component {
 						</View>
 						<PrimaryButton
 							onPress={() => {
-								NativeModules.NavigationManager.present('BookOverviewScreen');
+								NativeModules.NavigationManager.presentWithFeedback(
+									'ChapterEditScreen',
+									{
+										id: null,
+									},
+									() => {
+										NativeModules.NavigationManager.present('BookOverviewScreen', {});
+									}
+								);
 							}}>
 							Next
 						</PrimaryButton>
