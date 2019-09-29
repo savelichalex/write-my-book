@@ -6,10 +6,14 @@
  */
 
 #import <React/RCTBridgeDelegate.h>
+#import <React/RCTBridgeModule.h>
 #import <UIKit/UIKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
+
+- (void)present:(NSString *)screen andProps:(NSDictionary *)props;
+- (void)present:(NSString *)screen andProps:(NSDictionary *)props andFeedback:(RCTResponseSenderBlock)feedback;
 
 @end

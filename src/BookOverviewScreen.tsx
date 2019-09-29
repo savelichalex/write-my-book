@@ -8,12 +8,13 @@ import {
 	TouchableOpacity,
 	FlatList,
 	StyleSheet,
+	NativeModules,
 } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 const HEADER_MAX_HEIGHT = 100;
-const HEADER_MIN_HEIGHT = 60;
+const HEADER_MIN_HEIGHT = 44;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 const lorem =
@@ -86,13 +87,33 @@ export class BookOverviewScreen extends React.Component<void, State> {
 					scrollEventThrottle={1}
 					contentInsetAdjustmentBehavior="automatic"
 					onScroll={this.onScroll}
-					data={['first', 'second', 'third', 'fourth', 'fifth', 'six', 'seven', 'eight'].map(i => ({
+					data={[
+						'first',
+						'second',
+						'third',
+						'fourth',
+						'fifth',
+						'six',
+						'seven',
+						'eight',
+						'nine',
+						'ten',
+						'elleven',
+					].map(i => ({
 						title: i,
 						key: i,
 					}))}
 					renderItem={({ item, index }) => (
 						<Swipeable renderRightActions={this.renderSwipeToDelete(index)}>
-							<RectButton style={styles.listRowButton}>
+							<RectButton
+								style={styles.listRowButton}
+								onPress={() => {
+									NativeModules.NavigationManager.presentWithFeedback(
+										'ChapterEditScreen',
+										{ id: index },
+										(...args) => console.log(args)
+									);
+								}}>
 								<Text style={styles.listRowIndex}>{index + 1}.</Text>
 								<View style={styles.listRowTextStack}>
 									<Text style={styles.listRowChapterTitle}>{item.title}</Text>
@@ -105,56 +126,59 @@ export class BookOverviewScreen extends React.Component<void, State> {
 					)}
 					ItemSeparatorComponent={() => <View style={styles.separator} />}
 				/>
-				<SafeAreaView style={styles.safeArea}>
-					<View style={{ position: 'relative' }}>
-						<Animated.View
-							style={[
-								styles.header,
-								{
-									transform: [{ translateY: this.headerY }],
-								},
-							]}>
-							{this.state.isEditingTitle ? (
-								<TextInput
-									style={styles.headerTitle}
-									numberOfLines={1}
-									autoFocus
-									defaultValue="The catcher in the rye"
-								/>
-							) : (
-								<Text style={styles.headerTitle} adjustsFontSizeToFit numberOfLines={1}>
-									The catcher in the rye
-								</Text>
-							)}
-						</Animated.View>
-						<Animated.View style={styles.secondaryHeader}>
-							<Animated.Text
-								adjustsFontSizeToFit
-								numberOfLines={1}
-								style={[styles.secondaryHeaderTitle, { opacity: this.headerTitleOpacity }]}>
-								The catcher in the rye
-							</Animated.Text>
-							<TouchableOpacity
-								style={styles.editWrapper}
-								hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }}
-								onPress={() => {
-									if (this.state.isEditingTitle) {
-										this.setState({ isEditingTitle: false });
-										return;
-									}
-									this.listRef.current.scrollToOffset({ offset: 0 });
-									this.setState({ isEditingTitle: true });
-								}}>
-								<Text style={styles.editText}>{this.state.isEditingTitle ? 'Save' : 'Edit'}</Text>
-							</TouchableOpacity>
-							<TouchableOpacity
-								style={styles.addWrapper}
-								hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }}>
-								<Text style={styles.editText}>Add</Text>
-							</TouchableOpacity>
-						</Animated.View>
-					</View>
-				</SafeAreaView>
+				<Animated.View
+					style={[
+						styles.header,
+						{
+							transform: [{ translateY: this.headerY }],
+						},
+					]}>
+					{this.state.isEditingTitle ? (
+						<TextInput
+							style={styles.headerTitle}
+							numberOfLines={1}
+							autoFocus
+							defaultValue="The catcher in the rye"
+						/>
+					) : (
+						<Text style={styles.headerTitle} adjustsFontSizeToFit numberOfLines={1}>
+							The catcher in the rye
+						</Text>
+					)}
+				</Animated.View>
+				<Animated.View style={styles.secondaryHeader}>
+					<Animated.Text
+						adjustsFontSizeToFit
+						numberOfLines={1}
+						style={[styles.secondaryHeaderTitle, { opacity: this.headerTitleOpacity }]}>
+						The catcher in the rye
+					</Animated.Text>
+					<TouchableOpacity
+						style={styles.editWrapper}
+						hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }}
+						onPress={() => {
+							if (this.state.isEditingTitle) {
+								this.setState({ isEditingTitle: false });
+								return;
+							}
+							this.listRef.current.scrollToOffset({ offset: 0 });
+							this.setState({ isEditingTitle: true });
+						}}>
+						<Text style={styles.editText}>{this.state.isEditingTitle ? 'Save' : 'Edit'}</Text>
+					</TouchableOpacity>
+					<TouchableOpacity
+						style={styles.addWrapper}
+						hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }}
+						onPress={() => {
+							NativeModules.NavigationManager.presentWithFeedback(
+								'ChapterEditScreen',
+								{ id: null },
+								(...args) => console.log(args)
+							);
+						}}>
+						<Text style={styles.editText}>Add</Text>
+					</TouchableOpacity>
+				</Animated.View>
 			</View>
 		);
 	}

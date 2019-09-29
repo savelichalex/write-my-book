@@ -19,6 +19,10 @@
 		2DCD954D1E0B4F2C00145EB5 /* WriteMyBookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* WriteMyBookTests.m */; };
 		7666E15B4B99DDF4B59DBF3C /* libPods-WriteMyBook-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F11F6B39DFF0267E9B70D88B /* libPods-WriteMyBook-tvOS.a */; };
 		79115A0705852E02FB843EE4 /* libPods-WriteMyBookTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C967E14BDC7D7FECEBA6AD /* libPods-WriteMyBookTests.a */; };
+		A67D48712340AD6800794ED3 /* BookOverviewScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A67D48702340AD6800794ED3 /* BookOverviewScreenViewController.m */; };
+		A67D48742340BC2300794ED3 /* NewcomerScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A67D48732340BC2300794ED3 /* NewcomerScreenViewController.m */; };
+		A67D48772340BDDB00794ED3 /* ChapterEditScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A67D48762340BDDB00794ED3 /* ChapterEditScreenViewController.m */; };
+		A67D487A2340BF0200794ED3 /* NavigationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A67D48792340BF0200794ED3 /* NavigationManager.m */; };
 		B2112880E767B740DD651EE2 /* libPods-WriteMyBook-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93124DBD36334022F963100C /* libPods-WriteMyBook-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +65,14 @@
 		2D47216E24FE0A2B38E8AF56 /* Pods-WriteMyBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteMyBook.release.xcconfig"; path = "Target Support Files/Pods-WriteMyBook/Pods-WriteMyBook.release.xcconfig"; sourceTree = "<group>"; };
 		6E6C149D01D877033319F8D9 /* libPods-WriteMyBook.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WriteMyBook.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93124DBD36334022F963100C /* libPods-WriteMyBook-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WriteMyBook-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A67D486F2340AD6800794ED3 /* BookOverviewScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BookOverviewScreenViewController.h; path = WriteMyBook/BookOverviewScreenViewController.h; sourceTree = "<group>"; };
+		A67D48702340AD6800794ED3 /* BookOverviewScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BookOverviewScreenViewController.m; path = WriteMyBook/BookOverviewScreenViewController.m; sourceTree = "<group>"; };
+		A67D48722340BC2300794ED3 /* NewcomerScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NewcomerScreenViewController.h; path = WriteMyBook/NewcomerScreenViewController.h; sourceTree = "<group>"; };
+		A67D48732340BC2300794ED3 /* NewcomerScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = NewcomerScreenViewController.m; path = WriteMyBook/NewcomerScreenViewController.m; sourceTree = "<group>"; };
+		A67D48752340BDDB00794ED3 /* ChapterEditScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChapterEditScreenViewController.h; path = WriteMyBook/ChapterEditScreenViewController.h; sourceTree = "<group>"; };
+		A67D48762340BDDB00794ED3 /* ChapterEditScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ChapterEditScreenViewController.m; path = WriteMyBook/ChapterEditScreenViewController.m; sourceTree = "<group>"; };
+		A67D48782340BF0200794ED3 /* NavigationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NavigationManager.h; path = WriteMyBook/NavigationManager.h; sourceTree = "<group>"; };
+		A67D48792340BF0200794ED3 /* NavigationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = NavigationManager.m; path = WriteMyBook/NavigationManager.m; sourceTree = "<group>"; };
 		D7F2F2A56B97302DF2E4B9EC /* Pods-WriteMyBookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteMyBookTests.release.xcconfig"; path = "Target Support Files/Pods-WriteMyBookTests/Pods-WriteMyBookTests.release.xcconfig"; sourceTree = "<group>"; };
 		D8AA0C944D3206553AAF3BA6 /* Pods-WriteMyBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteMyBookTests.debug.xcconfig"; path = "Target Support Files/Pods-WriteMyBookTests/Pods-WriteMyBookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -132,6 +144,14 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				A67D486F2340AD6800794ED3 /* BookOverviewScreenViewController.h */,
+				A67D48702340AD6800794ED3 /* BookOverviewScreenViewController.m */,
+				A67D48722340BC2300794ED3 /* NewcomerScreenViewController.h */,
+				A67D48732340BC2300794ED3 /* NewcomerScreenViewController.m */,
+				A67D48752340BDDB00794ED3 /* ChapterEditScreenViewController.h */,
+				A67D48762340BDDB00794ED3 /* ChapterEditScreenViewController.m */,
+				A67D48782340BF0200794ED3 /* NavigationManager.h */,
+				A67D48792340BF0200794ED3 /* NavigationManager.m */,
 			);
 			name = WriteMyBook;
 			sourceTree = "<group>";
@@ -194,7 +214,6 @@
 				D8AA0C944D3206553AAF3BA6 /* Pods-WriteMyBookTests.debug.xcconfig */,
 				D7F2F2A56B97302DF2E4B9EC /* Pods-WriteMyBookTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -308,6 +327,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -528,6 +548,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A67D48742340BC2300794ED3 /* NewcomerScreenViewController.m in Sources */,
+				A67D487A2340BF0200794ED3 /* NavigationManager.m in Sources */,
+				A67D48772340BDDB00794ED3 /* ChapterEditScreenViewController.m in Sources */,
+				A67D48712340AD6800794ED3 /* BookOverviewScreenViewController.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);

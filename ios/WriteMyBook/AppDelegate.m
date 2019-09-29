@@ -9,25 +9,62 @@
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
-#import <React/RCTRootView.h>
 
-@implementation AppDelegate
+#import "NewcomerScreenViewController.h"
+#import "BookOverviewScreenViewController.h"
+#import "ChapterEditScreenViewController.h"
+
+@implementation AppDelegate {
+  RCTBridge *bridge;
+  UIViewController *rootVC;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
-                                                   moduleName:@"WriteMyBook"
-                                            initialProperties:nil];
-
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+  
+  // it will be UserDefaults check instead of true later
+  if (true) {
+    rootVC = [[NewcomerScreenViewController alloc] initWithBridge:bridge];
+  } else {
+    UIViewController *vc = [[BookOverviewScreenViewController alloc] initWithBridge:bridge];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    rootVC = nav;
+  }
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
-  self.window.rootViewController = rootViewController;
+  self.window.rootViewController = rootVC;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (void)present:(NSString *)screen andProps:(NSDictionary *)props {
+  if ([screen isEqualToString:@"BookOverviewScreen"]) {
+    UIViewController *vc = [[BookOverviewScreenViewController alloc] initWithBridge:bridge];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [rootVC presentViewController:nav animated:YES completion:^{
+      self->rootVC = nav;
+    }];
+  }
+}
+
+- (void)present:(NSString *)screen andProps:(NSDictionary *)props andFeedback:(RCTResponseSenderBlock)feedback {
+  if ([screen isEqualToString:@"ChapterEditScreen"]) {
+    if ([rootVC isKindOfClass:[UINavigationController class]]) {
+      UIViewController *vc = [[ChapterEditScreenViewController alloc] initWithBridge:bridge andProps:props andFeedback:feedback];
+      [(UINavigationController *)rootVC pushViewController:vc animated:YES];
+    } else {
+      UIViewController *vc = [[ChapterEditScreenViewController alloc] initWithBridge:bridge andProps:props andFeedback:feedback];
+      vc.navigationItem.title = @"Create first chapter";
+      UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+      
+      [rootVC presentViewController:nav animated:YES completion:^{
+        self->rootVC = nav;
+      }];
+    }
+  }
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
