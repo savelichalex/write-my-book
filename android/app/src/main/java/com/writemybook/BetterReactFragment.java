@@ -14,19 +14,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.facebook.react.ReactDelegate;
-import com.facebook.react.ReactFragment;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactRootView;
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.modules.core.PermissionAwareActivity;
 import com.facebook.react.modules.core.PermissionListener;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 
 public class BetterReactFragment extends Fragment implements PermissionAwareActivity {
-    private static final String ARG_COMPONENT_NAME = "arg_component_name";
-    private static final String ARG_LAUNCH_OPTIONS = "arg_launch_options";
+    public static final String ARG_COMPONENT_NAME = "arg_component_name";
+    public static final String ARG_LAUNCH_OPTIONS = "arg_launch_options";
 
     private ReactDelegate mReactDelegate;
     private Activity mActivity;
+    public Callback feedback;
+    private boolean isLoaded = false;
 
     @Nullable
     private PermissionListener mPermissionListener;
@@ -76,7 +78,10 @@ public class BetterReactFragment extends Fragment implements PermissionAwareActi
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mReactDelegate.loadApp();
+        if (!isLoaded) {
+            mReactDelegate.loadApp();
+            isLoaded = true;
+        }
         return mReactDelegate.getReactRootView();
     }
 

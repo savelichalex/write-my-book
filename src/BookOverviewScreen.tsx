@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { Navigation } from './Navigation';
 
 const HEADER_MAX_HEIGHT = 100;
 const HEADER_MIN_HEIGHT = 44;
@@ -108,10 +109,8 @@ export class BookOverviewScreen extends React.Component<void, State> {
 							<RectButton
 								style={styles.listRowButton}
 								onPress={() => {
-									NativeModules.NavigationManager.presentWithFeedback(
-										'ChapterEditScreen',
-										{ id: index },
-										(...args) => console.log(args)
+									Navigation.present('ChapterEditScreen', { id: index }, (...args) =>
+										console.log(args)
 									);
 								}}>
 								<Text style={styles.listRowIndex}>{index + 1}.</Text>
@@ -170,11 +169,7 @@ export class BookOverviewScreen extends React.Component<void, State> {
 						style={styles.addWrapper}
 						hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }}
 						onPress={() => {
-							NativeModules.NavigationManager.presentWithFeedback(
-								'ChapterEditScreen',
-								{ id: null },
-								(...args) => console.log(args)
-							);
+							Navigation.present('ChapterEditScreen', { id: -1 }, (...args) => console.log(args));
 						}}>
 						<Text style={styles.editText}>Add</Text>
 					</TouchableOpacity>

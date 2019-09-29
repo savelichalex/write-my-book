@@ -7,9 +7,10 @@ import {
 	Dimensions,
 	TextInput,
 	KeyboardAvoidingView,
-	NativeModules,
+	Platform,
 } from 'react-native';
 import { PrimaryButton } from './PrimaryButton';
+import { Navigation } from './Navigation';
 
 const { width } = Dimensions.get('window');
 
@@ -50,7 +51,9 @@ export class NewcomerScreen extends React.Component {
 
 	render() {
 		return (
-			<KeyboardAvoidingView style={styles.container} behavior="padding">
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.select({ ios: 'padding', android: null })}>
 				<View style={{ position: 'relative' }}>
 					<Animated.View
 						style={[
@@ -79,13 +82,13 @@ export class NewcomerScreen extends React.Component {
 						</View>
 						<PrimaryButton
 							onPress={() => {
-								NativeModules.NavigationManager.presentWithFeedback(
+								Navigation.present(
 									'ChapterEditScreen',
 									{
-										id: null,
+										id: -1,
 									},
 									() => {
-										NativeModules.NavigationManager.present('BookOverviewScreen', {});
+										Navigation.present('BookOverviewScreen');
 									}
 								);
 							}}>
