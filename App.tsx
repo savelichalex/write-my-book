@@ -15,6 +15,8 @@ import { NewcomerScreen } from './src/NewcomerScreen';
 import { BookOverviewScreen } from './src/BookOverviewScreen';
 import { ChapterEditScreen } from './src/ChapterEditScreen';
 
+// Please see src/Navigation.ts and corresponding native modules
+// for details about navigation I was used
 AppRegistry.registerComponent('NewcomerScreen', () => NewcomerScreen);
 AppRegistry.registerComponent('BookOverviewScreen', () => BookOverviewScreen);
 AppRegistry.registerComponent('ChapterEditScreen', () => ChapterEditScreen);

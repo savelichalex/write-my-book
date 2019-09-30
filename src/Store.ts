@@ -8,6 +8,11 @@ interface Chapter {
 
 export class Store {
 	constructor() {
+		// So why exactly use this instead of AsyncStorage?
+		// Answer is, that it's actually easier to rich
+		// UserDefaults on a startup to push user to a right screen
+		// (If there are no saved data, then show onboarding flow)
+		// see AppDelegate and MainActivity
 		NativeModules.UserDefaultsManager.getBook().then(json => {
 			if (json != null) {
 				this.fromString(json);
@@ -18,6 +23,7 @@ export class Store {
 	@observable title = '';
 	@observable chapters: Array<Chapters> = [];
 
+	// Storage to keep data from chapter edit screen inputs
 	tempChapter: Chapter = {
 		title: '',
 		text: '',

@@ -73,6 +73,11 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
   }
 
   public void present(String screen, Bundle props, Callback feedback) {
+    // Yeah, this is actually a big mess
+    // And it's definitely not ready for changes
+    // It's possible to make it better, with some NavigationCoordinator
+    // but it wasn't my goal here, I've tried to use native navigation
+    // and it's shown here
     BetterReactFragment fragment = new BetterReactFragment.Builder().setComponentName(screen).setLaunchOptions(props).build(this);
     FragmentTransaction t = getSupportFragmentManager()
             .beginTransaction()
