@@ -9,9 +9,20 @@ import {
 	Platform,
 	ScrollView,
 } from 'react-native';
+import { Store } from './Store';
 
-export class ChapterEditScreen extends React.Component {
+interface Props {
+	id: number;
+}
+
+export class ChapterEditScreen extends React.Component<Props> {
 	render() {
+		let defaultTitle = '';
+		let defaultText = '';
+		if (this.props.id !== -1) {
+			defaultTitle = Store.sharedInstance.chapters[this.props.id].title;
+			defaultText = Store.sharedInstance.chapters[this.props.id].text;
+		}
 		return (
 			<KeyboardAvoidingView
 				style={styles.container}
@@ -22,6 +33,8 @@ export class ChapterEditScreen extends React.Component {
 						style={styles.titleRowInput}
 						placeholder="My new marvelous chapter"
 						returnKeyType="next"
+						defaultValue={defaultTitle}
+						onChangeText={t => Store.sharedInstance.changeTempChapterTitle(t)}
 					/>
 				</View>
 				<Text style={styles.textLable}>TEXT</Text>
@@ -31,6 +44,8 @@ export class ChapterEditScreen extends React.Component {
 						multiline
 						placeholder="Start writing here..."
 						style={styles.textInput}
+						defaultValue={defaultText}
+						onChangeText={t => Store.sharedInstance.changeTempChapterText(t)}
 					/>
 				</View>
 			</KeyboardAvoidingView>

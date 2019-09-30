@@ -40,7 +40,16 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
     getSupportActionBar().hide();
     getSupportFragmentManager().addOnBackStackChangedListener(this);
 
-    mFragment = new BetterReactFragment.Builder().setComponentName("NewcomerScreen").build(this);
+    // Uncomment next line to clean saved book data
+    // UserDefaultsManager.clean(this);
+    String bookJson = UserDefaultsManager.getBook(this);
+
+    if (bookJson == null) {
+      mFragment = new BetterReactFragment.Builder().setComponentName("NewcomerScreen").build(this);
+    } else {
+      mFragment = new BetterReactFragment.Builder().setComponentName("BookOverviewScreen").build(this);
+    }
+
     getSupportFragmentManager()
             .beginTransaction()
             //.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_in_left)

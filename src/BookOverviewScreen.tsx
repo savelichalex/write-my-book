@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { observer } from 'mobx-react';
 import {
 	Animated,
 	View,
@@ -13,18 +14,17 @@ import {
 import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Navigation } from './Navigation';
+import { Store } from './Store';
 
 const HEADER_MAX_HEIGHT = 100;
 const HEADER_MIN_HEIGHT = 44;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
-const lorem =
-	'Enim ut tellus elementum sagittis vitae et! Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas maecenas pharetra convallis posuere morbi!';
-
 interface State {
 	isEditingTitle: boolean;
 }
 
+@observer
 export class BookOverviewScreen extends React.Component<void, State> {
 	state = {
 		isEditingTitle: false,
@@ -72,7 +72,9 @@ export class BookOverviewScreen extends React.Component<void, State> {
 				justifyContent: 'center',
 				paddingHorizontal: 20,
 			}}
-			onPress={() => {}}>
+			onPress={() => {
+				Store.sharedInstance.deleteChapter(index);
+			}}>
 			<Animated.Text style={{ fontSize: 17, color: 'white' }}>Delete</Animated.Text>
 		</RectButton>
 	);
@@ -88,36 +90,28 @@ export class BookOverviewScreen extends React.Component<void, State> {
 					scrollEventThrottle={1}
 					contentInsetAdjustmentBehavior="automatic"
 					onScroll={this.onScroll}
-					data={[
-						'first',
-						'second',
-						'third',
-						'fourth',
-						'fifth',
-						'six',
-						'seven',
-						'eight',
-						'nine',
-						'ten',
-						'elleven',
-					].map(i => ({
-						title: i,
-						key: i,
+					data={Store.sharedInstance.chapters.map(({ title, text }, index) => ({
+						key: title + index,
+						title,
+						text,
 					}))}
 					renderItem={({ item, index }) => (
 						<Swipeable renderRightActions={this.renderSwipeToDelete(index)}>
 							<RectButton
 								style={styles.listRowButton}
 								onPress={() => {
-									Navigation.present('ChapterEditScreen', { id: index }, (...args) =>
-										console.log(args)
+									Navigation.present('ChapterEditScreen', { id: index }, id =>
+										// That's definetely not a best solution
+										// it's just how I managed to pass a callback
+										// to "Save" button on native side
+										Store.sharedInstance.changeChapter(id)
 									);
 								}}>
 								<Text style={styles.listRowIndex}>{index + 1}.</Text>
 								<View style={styles.listRowTextStack}>
 									<Text style={styles.listRowChapterTitle}>{item.title}</Text>
 									<Text style={styles.listRowChapterPreview} numberOfLines={2}>
-										{lorem}
+										{item.text}
 									</Text>
 								</View>
 							</RectButton>
@@ -137,11 +131,12 @@ export class BookOverviewScreen extends React.Component<void, State> {
 							style={styles.headerTitle}
 							numberOfLines={1}
 							autoFocus
-							defaultValue="The catcher in the rye"
+							defaultValue={Store.sharedInstance.title}
+							onChangeText={t => Store.sharedInstance.setTitle(t)}
 						/>
 					) : (
 						<Text style={styles.headerTitle} adjustsFontSizeToFit numberOfLines={1}>
-							The catcher in the rye
+							{Store.sharedInstance.title}
 						</Text>
 					)}
 				</Animated.View>
@@ -150,7 +145,7 @@ export class BookOverviewScreen extends React.Component<void, State> {
 						adjustsFontSizeToFit
 						numberOfLines={1}
 						style={[styles.secondaryHeaderTitle, { opacity: this.headerTitleOpacity }]}>
-						The catcher in the rye
+						{Store.sharedInstance.title}
 					</Animated.Text>
 					<TouchableOpacity
 						style={styles.editWrapper}
@@ -169,7 +164,12 @@ export class BookOverviewScreen extends React.Component<void, State> {
 						style={styles.addWrapper}
 						hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }}
 						onPress={() => {
-							Navigation.present('ChapterEditScreen', { id: -1 }, (...args) => console.log(args));
+							Navigation.present('ChapterEditScreen', { id: -1 }, id =>
+								// That's definetely not a best solution
+								// it's just how I managed to pass a callback
+								// to "Save" button on native side
+								Store.sharedInstance.changeChapter(id)
+							);
 						}}>
 						<Text style={styles.editText}>Add</Text>
 					</TouchableOpacity>
@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
 	},
 	list: {
 		flex: 1,
+		backgroundColor: 'white',
 	},
 	listContent: {
 		paddingTop: HEADER_MAX_HEIGHT,
