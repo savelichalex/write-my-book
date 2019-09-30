@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
     getSupportActionBar().hide();
     getSupportFragmentManager().addOnBackStackChangedListener(this);
 
+    // Uncomment next line to clean saved book data
+    // UserDefaultsManager.clean(this);
     String bookJson = UserDefaultsManager.getBook(this);
 
     if (bookJson == null) {

@@ -46,4 +46,11 @@ public class UserDefaultsManager extends ReactContextBaseJavaModule {
         SharedPreferences preferences = context.getSharedPreferences("WriteMyBookPreferences", Context.MODE_PRIVATE);
         return preferences.getString(BOOK_KEY, null);
     }
+
+    public static void clean(Activity context) {
+        SharedPreferences preferences = context.getSharedPreferences("WriteMyBookPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(BOOK_KEY);
+        editor.apply();
+    }
 }
