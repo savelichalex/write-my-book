@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { observer } from 'mobx-react';
 import {
 	View,
 	Text,
@@ -15,6 +16,7 @@ import { Store } from './Store';
 
 const { width } = Dimensions.get('window');
 
+@observer
 export class NewcomerScreen extends React.Component {
 	firstTranslate = new Animated.Value(0);
 	firstOpacity = new Animated.Value(1);
@@ -87,6 +89,7 @@ export class NewcomerScreen extends React.Component {
 							/>
 						</View>
 						<PrimaryButton
+							disabled={Store.sharedInstance.title === ''}
 							onPress={() => {
 								Navigation.present(
 									'ChapterEditScreen',

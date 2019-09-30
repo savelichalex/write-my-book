@@ -8,6 +8,7 @@ import {
 
 interface Props {
 	onPress?(): void;
+	disabled?: boolean;
 	style?: ViewStyle;
 	contentStyle?: ViewStyle;
 	children: string;
@@ -52,7 +53,10 @@ export class PrimaryButton extends React.Component<Props> {
 					style={[
 						styles.container,
 						this.props.contentStyle,
-						{ transform: [{ scale: this.scale }] },
+						{
+							backgroundColor: this.props.disabled ? '#ccc' : '#4886c6',
+							transform: [{ scale: this.scale }],
+						},
 					]}>
 					<Text style={styles.text}>{this.props.children}</Text>
 				</Animated.View>
@@ -65,7 +69,6 @@ const styles = StyleSheet.create({
 	container: {
 		height: 50,
 		borderRadius: 25,
-		backgroundColor: '#4886c6',
 		alignItems: 'center',
 		justifyContent: 'center',
 		shadowColor: 'rgba(0, 0, 0, 0.2)',
