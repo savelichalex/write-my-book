@@ -23,6 +23,7 @@
 		A67D48742340BC2300794ED3 /* NewcomerScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A67D48732340BC2300794ED3 /* NewcomerScreenViewController.m */; };
 		A67D48772340BDDB00794ED3 /* ChapterEditScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A67D48762340BDDB00794ED3 /* ChapterEditScreenViewController.m */; };
 		A67D487A2340BF0200794ED3 /* NavigationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A67D48792340BF0200794ED3 /* NavigationManager.m */; };
+		A67D487D2341FC1800794ED3 /* UserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A67D487C2341FC1800794ED3 /* UserDefaultsManager.m */; };
 		B2112880E767B740DD651EE2 /* libPods-WriteMyBook-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93124DBD36334022F963100C /* libPods-WriteMyBook-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,8 @@
 		A67D48762340BDDB00794ED3 /* ChapterEditScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ChapterEditScreenViewController.m; path = WriteMyBook/ChapterEditScreenViewController.m; sourceTree = "<group>"; };
 		A67D48782340BF0200794ED3 /* NavigationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NavigationManager.h; path = WriteMyBook/NavigationManager.h; sourceTree = "<group>"; };
 		A67D48792340BF0200794ED3 /* NavigationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = NavigationManager.m; path = WriteMyBook/NavigationManager.m; sourceTree = "<group>"; };
+		A67D487B2341FC1800794ED3 /* UserDefaultsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UserDefaultsManager.h; path = WriteMyBook/UserDefaultsManager.h; sourceTree = "<group>"; };
+		A67D487C2341FC1800794ED3 /* UserDefaultsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = UserDefaultsManager.m; path = WriteMyBook/UserDefaultsManager.m; sourceTree = "<group>"; };
 		D7F2F2A56B97302DF2E4B9EC /* Pods-WriteMyBookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteMyBookTests.release.xcconfig"; path = "Target Support Files/Pods-WriteMyBookTests/Pods-WriteMyBookTests.release.xcconfig"; sourceTree = "<group>"; };
 		D8AA0C944D3206553AAF3BA6 /* Pods-WriteMyBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteMyBookTests.debug.xcconfig"; path = "Target Support Files/Pods-WriteMyBookTests/Pods-WriteMyBookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -152,6 +155,8 @@
 				A67D48762340BDDB00794ED3 /* ChapterEditScreenViewController.m */,
 				A67D48782340BF0200794ED3 /* NavigationManager.h */,
 				A67D48792340BF0200794ED3 /* NavigationManager.m */,
+				A67D487B2341FC1800794ED3 /* UserDefaultsManager.h */,
+				A67D487C2341FC1800794ED3 /* UserDefaultsManager.m */,
 			);
 			name = WriteMyBook;
 			sourceTree = "<group>";
@@ -554,6 +559,7 @@
 				A67D48712340AD6800794ED3 /* BookOverviewScreenViewController.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				A67D487D2341FC1800794ED3 /* UserDefaultsManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

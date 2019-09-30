@@ -23,8 +23,10 @@
 {
   bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   
-  // it will be UserDefaults check instead of true later
-  if (true) {
+  // Uncomment this to delete saved data and start from scratch
+  // [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Book"];
+  NSString *json = [[NSUserDefaults standardUserDefaults] stringForKey:@"Book"];
+  if (json == nil) {
     rootVC = [[NewcomerScreenViewController alloc] initWithBridge:bridge];
   } else {
     UIViewController *vc = [[BookOverviewScreenViewController alloc] initWithBridge:bridge];

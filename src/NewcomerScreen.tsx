@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { PrimaryButton } from './PrimaryButton';
 import { Navigation } from './Navigation';
+import { Store } from './Store';
 
 const { width } = Dimensions.get('window');
 
@@ -78,7 +79,12 @@ export class NewcomerScreen extends React.Component {
 						]}>
 						<Text style={styles.label}>Make a book title</Text>
 						<View style={styles.inputWrapper}>
-							<TextInput ref={this.titleInputRef} style={styles.input} multiline />
+							<TextInput
+								ref={this.titleInputRef}
+								style={styles.input}
+								multiline
+								onChangeText={t => Store.sharedInstance.setTitle(t)}
+							/>
 						</View>
 						<PrimaryButton
 							onPress={() => {
@@ -87,7 +93,8 @@ export class NewcomerScreen extends React.Component {
 									{
 										id: -1,
 									},
-									() => {
+									id => {
+										Store.sharedInstance.changeChapter(id);
 										Navigation.present('BookOverviewScreen');
 									}
 								);
