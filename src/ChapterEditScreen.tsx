@@ -16,6 +16,9 @@ interface Props {
 }
 
 export class ChapterEditScreen extends React.Component<Props> {
+	titleRef = React.createRef<TextInput>();
+	textRef = React.createRef<TextInput>();
+
 	render() {
 		let defaultTitle = '';
 		let defaultText = '';
@@ -27,27 +30,32 @@ export class ChapterEditScreen extends React.Component<Props> {
 			<KeyboardAvoidingView
 				style={styles.container}
 				behavior={Platform.select({ ios: 'padding', android: null })}>
-				<View style={styles.titleRow}>
-					<Text style={styles.titleRowLabel}>Title</Text>
-					<TextInput
-						style={styles.titleRowInput}
-						placeholder="My new marvelous chapter"
-						returnKeyType="next"
-						defaultValue={defaultTitle}
-						onChangeText={t => Store.sharedInstance.changeTempChapterTitle(t)}
-					/>
-				</View>
+				<TouchableWithoutFeedback onPress={() => this.titleRef.current.focus()}>
+					<View style={styles.titleRow}>
+						<Text style={styles.titleRowLabel}>Title</Text>
+						<TextInput
+							ref={this.titleRef}
+							style={styles.titleRowInput}
+							placeholder="My new marvelous chapter"
+							returnKeyType="next"
+							defaultValue={defaultTitle}
+							onChangeText={t => Store.sharedInstance.changeTempChapterTitle(t)}
+						/>
+					</View>
+				</TouchableWithoutFeedback>
 				<Text style={styles.textLable}>TEXT</Text>
-				<View style={styles.textInputWrapper}>
-					<TextInput
-						ref={this.textRef}
-						multiline
-						placeholder="Start writing here..."
-						style={styles.textInput}
-						defaultValue={defaultText}
-						onChangeText={t => Store.sharedInstance.changeTempChapterText(t)}
-					/>
-				</View>
+				<TouchableWithoutFeedback onPress={() => this.textRef.current.focus()}>
+					<View style={styles.textInputWrapper}>
+						<TextInput
+							ref={this.textRef}
+							multiline
+							placeholder="Start writing here..."
+							style={styles.textInput}
+							defaultValue={defaultText}
+							onChangeText={t => Store.sharedInstance.changeTempChapterText(t)}
+						/>
+					</View>
+				</TouchableWithoutFeedback>
 			</KeyboardAvoidingView>
 		);
 	}
